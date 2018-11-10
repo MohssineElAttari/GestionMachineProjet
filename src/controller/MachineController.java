@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestion_machine2;
+package controller;
 
 import classe.Machine;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ import service.MachineService;
  *
  * @author imadeddine
  */
-public class FXMLDocumentController implements Initializable {
+public class MachineController implements Initializable {
 
     MachineService ms = new MachineService();
     ObservableList<Machine> machineList = FXCollections.observableArrayList();
@@ -80,7 +81,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void delete() {
-
         ms.delete(ms.findById(index));
         machineList.clear();
         load();
@@ -97,14 +97,12 @@ public class FXMLDocumentController implements Initializable {
         ms.update(m2);
         machineList.clear();
         load();
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         load();
         machines.setOnMousePressed(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
                 TablePosition pos = (TablePosition) machines.getSelectionModel().getSelectedCells().get(0);
@@ -116,12 +114,12 @@ public class FXMLDocumentController implements Initializable {
                 index = item.getId();
                 //la convertion de la date a LocalDate
                 Date date = item.getDateAchat();
-                Instant instant = date.toInstant();
-                LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-                dateAchat.setValue(localDate.MIN);
+//                System.out.println("date = "+date);
+                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate localDate = LocalDate.parse(date.toString(), formatter);
+                dateAchat.setValue(localDate);
 //                System.out.println(localDate.MIN);
                 load();
-
             }
         });
     }

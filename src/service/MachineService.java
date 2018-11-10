@@ -5,7 +5,7 @@
  */
 package service;
 
-import IDao.IDao;
+import dao.IDao;
 import classe.Machine;
 import java.util.List;
 import org.hibernate.HibernateException;
