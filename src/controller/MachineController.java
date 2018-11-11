@@ -7,11 +7,13 @@ package controller;
 
 import classe.Machine;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -26,6 +30,8 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import org.hibernate.PropertyValueException;
 import service.MachineService;
@@ -43,19 +49,14 @@ public class MachineController implements Initializable {
 
     @FXML
     private TextField marque;
-
     @FXML
     private TextField reference;
-
     @FXML
     private DatePicker dateAchat;
-
     @FXML
     private TextField prix;
-
     @FXML
     private TableView<Machine> machines;
-
     @FXML
     private TableColumn<Machine, String> cMarque;
     @FXML
@@ -64,6 +65,8 @@ public class MachineController implements Initializable {
     private TableColumn<Machine, LocalDate> cDateAchat;
     @FXML
     private TableColumn<Machine, String> cPrix;
+    @FXML
+    private ImageView logo;
 
     @FXML
     private void saveAction(ActionEvent event) {
@@ -81,26 +84,51 @@ public class MachineController implements Initializable {
 
     @FXML
     private void delete() {
-        ms.delete(ms.findById(index));
-        machineList.clear();
-        load();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirmation de suppression");
+        alert.setContentText("Vous vous vraiment supprimer cette machine?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            ms.delete(ms.findById(index));
+            machineList.clear();
+            load();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+
     }
 
     @FXML
     private void update() {
-        Machine m2 = ms.findById(index);
-        //MachinList.set(index, m2);
-        m2.setDateAchat(dt);
-        m2.setMarque(marque.getText());
-        m2.setReference(reference.getText());
-        m2.setPrix(Double.parseDouble(prix.getText()));
-        ms.update(m2);
-        machineList.clear();
-        load();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirmation de modification");
+        alert.setContentText("Vous vous vraiment modifier cette machine?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Machine m2 = ms.findById(index);
+            //MachinList.set(index, m2);
+            m2.setDateAchat(dt);
+            m2.setMarque(marque.getText());
+            m2.setReference(reference.getText());
+            Instant instant = Instant.from(dateAchat.getValue().atStartOfDay(ZoneId.systemDefault()));
+            dt = Date.from(instant);
+            m2.setDateAchat(dt);
+            m2.setPrix(Double.parseDouble(prix.getText()));
+            ms.update(m2);
+            machineList.clear();
+            load();
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        logo.setImage(new Image("images/network.png", 160, 160, false, true));
+
         load();
         machines.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -115,8 +143,9 @@ public class MachineController implements Initializable {
                 //la convertion de la date a LocalDate
                 Date date = item.getDateAchat();
 //                System.out.println("date = "+date);
-                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                LocalDate localDate = LocalDate.parse(date.toString(), formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                SimpleDateFormat sdf = new  SimpleDateFormat("dd-MM-yyyy");
+                LocalDate localDate = LocalDate.parse(sdf.format(date), formatter);
                 dateAchat.setValue(localDate);
 //                System.out.println(localDate.MIN);
                 load();

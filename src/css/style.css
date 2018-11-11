@@ -1,0 +1,98 @@
+.root {
+    -fx-font-size: 14px;
+    -fx-font-family: sans-serif;
+    -fx-background-color: #ffffff;
+}
+
+.bn-add {
+    -fx-background-color:blue;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-color:azure;
+}
+.bn-menu {
+    -fx-background-color: burlywood;
+    -fx-padding-bottom: 10px;
+    -fx-height: 50px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-color:azure;
+}
+.bn-menu:hover {
+    -fx-background-color: bisque;
+    -fx-padding-bottom: 10px;
+}
+.bn-delete{
+    -fx-background-color:red;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-color:azure;
+}
+
+.bn-update{
+    -fx-background-color:greenyellow;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-color:azure;
+}
+
+.header-section {
+    -fx-padding: 10px;
+    -fx-font-size: 20px;
+    -fx-background-color: bisque;
+}
+
+.header-section Label {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px;
+}
+
+#account {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-background-color: bisque;
+}
+
+.sidebar-section {
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+    -fx-border-width: 1;
+    -fx-border-color: transparent #E8E8E8 transparent transparent;
+}
+
+.sidebar-section Label {
+    -fx-font-size: 18px;
+    -fx-padding: 10 15 10 15;
+    -fx-border-width: 1;
+    -fx-border-color: transparent transparent #E8E8E8 transparent;
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+}
+
+.content-section {
+    -fx-padding: 10 20 10 20;
+    -fx-wrap-text: true;
+
+}
+
+#content-header {
+    -fx-font-size: 18px;
+    -fx-padding: 0 0 10 0;
+    -fx-font-weight: 700;
+}
+
+#content {
+    -fx-wrap-text: true;
+    -fx-font-size: 16px;
+}
+
+#footer-section {
+    -fx-alignment: center;
+    -fx-padding: 10 10 10 10;
+    -fx-border-width: 1;
+    -fx-border-color: #E8E8E8 transparent transparent transparent;
+}

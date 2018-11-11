@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -24,7 +25,10 @@ public class Main extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("vue/MachineVue.fxml"));
             Scene scene = new Scene(root);
-
+            stage.setTitle("Parc Informatique");
+            scene.getStylesheets().add(getClass().getResource("css/style.css").toExternalForm());
+            // Add a custom icon.
+            stage.getIcons().add(new Image(this.getClass().getResource("images/network.png").toString()));
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

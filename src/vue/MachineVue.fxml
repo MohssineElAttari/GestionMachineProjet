@@ -7,60 +7,107 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MachineController">
+<BorderPane styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MachineController">
    <center>
-      <GridPane>
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Marque :" />
-            <Label text="Date Achat" GridPane.rowIndex="2" />
-            <Label text="Reference :" GridPane.rowIndex="1" />
-            <Label text="Prix :" GridPane.rowIndex="3" />
-            <TextField fx:id="marque" GridPane.columnIndex="1" />
-            <TextField fx:id="reference" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="prix" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="dateAchat" prefHeight="25.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         </children>
+      <VBox fx:id="account" stylesheets="@../css/style.css">
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
-      </GridPane>
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Marque :" />
+                  <Label text="Date Achat :" GridPane.rowIndex="2" />
+                  <Label text="Reference :" GridPane.rowIndex="1" />
+                  <Label text="Prix :" GridPane.rowIndex="3" />
+                  <TextField fx:id="marque" GridPane.columnIndex="1" />
+                  <TextField fx:id="reference" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="prix" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="dateAchat" prefHeight="25.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" styleClass="bn-add" text="Ajouter" GridPane.columnIndex="3" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#update" styleClass="bn-update" text="Modifier" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delete" styleClass="bn-delete" text="Suprimer" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </GridPane>
+            <TableView fx:id="machines">
+              <columns>
+                <TableColumn fx:id="cMarque" prefWidth="162.0" text="Marque" />
+                <TableColumn fx:id="cReference" prefWidth="137.59996032714844" text="Reference" />
+                  <TableColumn fx:id="cDateAchat" prefWidth="202.4000244140625" resizable="false" text="Date Achat" />
+                  <TableColumn fx:id="cPrix" prefWidth="181.60003662109375" text="Prix" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
    </center>
    <right>
       <VBox spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#saveAction" text="Ajouter" />
-            <Button mnemonicParsing="false" onAction="#update" text="Modifier" />
-            <Button mnemonicParsing="false" onAction="#delete" text="Suprimer" />
-         </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" />
          </padding>
       </VBox>
    </right>
-   <bottom>
-      <TableView fx:id="machines" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="cMarque" prefWidth="162.0" text="Marque" />
-          <TableColumn fx:id="cReference" prefWidth="113.0" text="Reference" />
-            <TableColumn fx:id="cDateAchat" prefWidth="137.0" text="Date Achat" />
-            <TableColumn fx:id="cPrix" prefWidth="269.0" text="Prix" />
-        </columns>
-      </TableView>
-   </bottom>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="bn-menu" stylesheets="@../css/style.css" text="Machines" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" styleClass="bn-menu" text="Button" GridPane.rowIndex="1" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="bn-menu" text="Button" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="header-section" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fill="#e24949" strokeType="OUTSIDE" strokeWidth="0.0" text="Application de Gestion d'un Parc Informatique" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="40.0" />
+               </HBox.margin></Text>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
