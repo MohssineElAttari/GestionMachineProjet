@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("vue/MachineVue.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("vue/ProfilVue.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Parc Informatique");
             scene.getStylesheets().add(getClass().getResource("css/style.css").toExternalForm());
